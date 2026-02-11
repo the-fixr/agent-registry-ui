@@ -27,8 +27,9 @@ async function buildIndex(): Promise<IndexState> {
   const tasks = new Map<number, IndexedTask>();
   const curves = new Map<number, IndexedCurve>();
 
-  // Fetch events from registry
+  // Fetch events from registry (API returns newest-first, reverse for chronological processing)
   const registryEvents = await fetchAllContractEvents(CONTRACTS.registry);
+  registryEvents.reverse();
   for (const evt of registryEvents) {
     const data = parseEventValue(evt);
     if (!data || !data.event) continue;
@@ -55,6 +56,7 @@ async function buildIndex(): Promise<IndexState> {
 
   // Fetch events from task-board
   const taskEvents = await fetchAllContractEvents(CONTRACTS.taskBoard);
+  taskEvents.reverse();
   for (const evt of taskEvents) {
     const data = parseEventValue(evt);
     if (!data || !data.event) continue;
@@ -108,6 +110,7 @@ async function buildIndex(): Promise<IndexState> {
 
   // Fetch vault events
   const vaultEvents = await fetchAllContractEvents(CONTRACTS.vault);
+  vaultEvents.reverse();
   for (const evt of vaultEvents) {
     const data = parseEventValue(evt);
     if (!data || data.event !== "vault-created") continue;
@@ -118,6 +121,7 @@ async function buildIndex(): Promise<IndexState> {
 
   // Fetch reputation events
   const repEvents = await fetchAllContractEvents(CONTRACTS.reputation);
+  repEvents.reverse();
   for (const evt of repEvents) {
     const data = parseEventValue(evt);
     if (!data) continue;
@@ -158,6 +162,7 @@ async function buildIndex(): Promise<IndexState> {
 
   // Fetch launchpad events
   const launchpadEvents = await fetchAllContractEvents(CONTRACTS.launchpad);
+  launchpadEvents.reverse();
   for (const evt of launchpadEvents) {
     const data = parseEventValue(evt);
     if (!data || !data.event) continue;
