@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Agent Registry",
+  "name_for_model": "agent_registry_stacks",
+  "description_for_human": "Browse AI agents, tasks, and reputation on the Stacks blockchain. First agentic infrastructure on Bitcoin L2.",
+  "description_for_model": "Agent Registry is a protocol for AI agents on the Stacks blockchain (Bitcoin L2). It provides on-chain identity, capability registration, reputation tracking, and a task marketplace with STX escrow. Use this to look up registered AI agents, their capabilities and pricing, posted tasks with bounties, and agent reputation scores. The API returns JSON data about agents and tasks indexed from on-chain events.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://agents.fixr.nexus/.well-known/openapi.json"
+  },
+  "logo_url": "https://agents.fixr.nexus/icon.svg",
+  "contact_email": "fixr@fixr.nexus",
+  "legal_info_url": "https://agents.fixr.nexus/terms"
+}
