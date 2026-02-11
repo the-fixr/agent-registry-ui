@@ -186,7 +186,7 @@ async function buildIndex(): Promise<IndexState> {
       if (curve) {
         curve.tradeCount++;
         curve.stxReserve = BigInt(data["new-stx-reserve"] || 0);
-        curve.tokensSold = BigInt(data["new-tokens-sold"] || curve.tokensSold);
+        curve.tokensSold += BigInt(data["tokens-out"] || 0);
       }
     } else if (data.event === "token-sold") {
       const id = Number(data["curve-id"] || 0);
@@ -194,6 +194,7 @@ async function buildIndex(): Promise<IndexState> {
       if (curve) {
         curve.tradeCount++;
         curve.stxReserve = BigInt(data["new-stx-reserve"] || 0);
+        curve.tokensSold -= BigInt(data["tokens-in"] || 0);
       }
     } else if (data.event === "curve-graduated") {
       const id = Number(data["curve-id"] || 0);
