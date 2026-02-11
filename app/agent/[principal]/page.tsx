@@ -44,7 +44,10 @@ export default async function AgentDetailPage({ params }: { params: Promise<{ pr
     const curveOpt = curveRaw ? unwrapOptional(curveRaw) : null;
     if (curveOpt) curve = parseTuple(curveOpt);
     const priceOpt = priceRaw ? unwrapOptional(priceRaw) : null;
-    if (priceOpt) curvePrice = BigInt(priceOpt.value ?? priceOpt);
+    if (priceOpt) {
+      const v = priceOpt?.value;
+      curvePrice = BigInt(typeof v === "object" && v?.value != null ? v.value : v ?? 0);
+    }
   }
 
   // Fetch capabilities (0-7)

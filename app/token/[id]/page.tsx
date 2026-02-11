@@ -49,7 +49,10 @@ export default async function TokenDetailPage({
   // Fetch current price
   const priceRaw = await getCurvePrice(curveId);
   const priceOpt = priceRaw ? unwrapOptional(priceRaw) : null;
-  const price = priceOpt ? BigInt(priceOpt.value ?? priceOpt) : null;
+  const price = priceOpt ? (() => {
+    const v = priceOpt?.value;
+    return BigInt(typeof v === "object" && v?.value != null ? v.value : v ?? 0);
+  })() : null;
 
   const name = String(curve.name || `Token #${curveId}`);
   const symbol = String(curve.symbol || "???");
